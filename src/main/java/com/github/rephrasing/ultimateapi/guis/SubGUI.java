@@ -12,12 +12,11 @@ public class SubGUI extends AbstractGUI {
         this.mainGUI = mainGUI;
     }
 
+
     public SubGUI(Player player, String name, int size, GUI mainGUI) {
         super(player, name, size);
         this.mainGUI = mainGUI;
     }
-
-
 
     public GUI getMainGUI() {
         return mainGUI;
