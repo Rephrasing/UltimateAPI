@@ -23,7 +23,7 @@ public class ItemCollection {
     private short attributes;
     private String name;
     private List<String> lore;
-    private HashMap<Enchantment, Integer> enchantments;
+    private Map<Enchantment, Integer> enchantments;
     private List<ItemFlag> itemFlags;
 
     public ItemCollection(Material type) {
@@ -92,6 +92,19 @@ public class ItemCollection {
         this.itemFlags = flags;
     }
 
+    public ItemCollection(ItemStack itemStack) {
+        this.instance = itemStack;
+        this.count = itemStack.getAmount();
+        this.type = itemStack.getType();
+        if (itemStack.hasItemMeta()) {
+            ItemMeta meta = itemStack.getItemMeta();
+            this.name = meta.getDisplayName();
+            this.lore = meta.getLore();
+            this.enchantments = meta.getEnchants() != null ?  meta.getEnchants() : new HashMap<>();
+            this.itemFlags = meta.getItemFlags() != null ? (List<ItemFlag>)  meta.getItemFlags() : new ArrayList<>();
+        }
+    }
+
     public void setName(String name) {
         String colorized = Util.colorize(name);
         ItemMeta meta = getInstance().getItemMeta();
@@ -118,7 +131,7 @@ public class ItemCollection {
         getInstance().setItemMeta(meta);
     }
 
-    public void setEnchantments(HashMap<Enchantment, Integer> enchants) {
+    public void setEnchantments(Map<Enchantment, Integer> enchants) {
         ItemMeta meta = getInstance().getItemMeta();
         for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
             meta.addEnchant(entry.getKey(), entry.getValue(), true);

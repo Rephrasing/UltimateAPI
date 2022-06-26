@@ -2,8 +2,8 @@ package com.github.rephrasing.ultimateapi.data;
 
 import org.bson.Document;
 
-public abstract class AbstractDocumentData {
+public abstract class AbstractBsonData {
 
     public abstract Document toBson();
-    public abstract AbstractDocumentData fromBson(Document document);
+    public abstract AbstractBsonData fromBson(Document document);
 }
