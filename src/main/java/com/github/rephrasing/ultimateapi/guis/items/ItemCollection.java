@@ -20,6 +20,7 @@ public class ItemCollection {
     private final Material type;
     private final int count;
 
+    private short attributes;
     private String name;
     private List<String> lore;
     private HashMap<Enchantment, Integer> enchantments;
@@ -38,6 +39,16 @@ public class ItemCollection {
         this.count = count;
     }
 
+    public ItemCollection(Material type, int count, short attributes) {
+        if (count > 64)
+            throw new IndexOutOfBoundsException("Cannot create a org.bukkit.inventory.ItemStack with count larger than 64");
+        this.type = type;
+        this.instance = new ItemStack(type, count, attributes);
+        this.count = count;
+        this.attributes = attributes;
+    }
+
+
 
     public ItemCollection(String name, Material type) {
         this.type = type;
@@ -52,6 +63,15 @@ public class ItemCollection {
         this.name = name;
         this.instance = new ItemStack(type, count);
         this.count = count;
+    }
+    public ItemCollection(String name, Material type, int count, short attributes) {
+        if (count > 64)
+            throw new IndexOutOfBoundsException("Cannot create a org.bukkit.inventory.ItemStack with count larger than 64");
+        this.type = type;
+        this.name = name;
+        this.instance = new ItemStack(type, count, attributes);
+        this.count = count;
+        this.attributes = attributes;
     }
 
 

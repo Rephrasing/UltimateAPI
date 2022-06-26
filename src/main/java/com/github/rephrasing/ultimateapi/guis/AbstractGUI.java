@@ -37,7 +37,7 @@ public abstract class AbstractGUI implements InventoryHolder {
         player.closeInventory();
     }
 
-    public void replaceItem(int slot, ItemCollection item) {
+    public void setItem(int slot, ItemCollection item) {
         inventory.setItem(slot, item.getInstance());
     }
 
