@@ -7,15 +7,15 @@ public class SubGUI extends AbstractGUI {
 
     private final GUI mainGUI;
 
-    public SubGUI(Player player, int size, GUI mainGUI) {
+    public SubGUI(Player player, int size, GUI main) {
         super(player, size);
-        this.mainGUI = mainGUI;
+        this.mainGUI = main;
     }
 
 
-    public SubGUI(Player player, String name, int size, GUI mainGUI) {
+    public SubGUI(Player player, String name, int size, GUI main) {
         super(player, name, size);
-        this.mainGUI = mainGUI;
+        this.mainGUI = main;
     }
 
     public GUI getMainGUI() {
