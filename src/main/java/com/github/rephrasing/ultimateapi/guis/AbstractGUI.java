@@ -41,6 +41,10 @@ public abstract class AbstractGUI implements InventoryHolder {
         inventory.setItem(slot, item.getInstance());
     }
 
+    public void addItem(ItemCollection item) {
+        inventory.setItem(inventory.firstEmpty(), item.getInstance());
+    }
+
     public void removeItem(int slot) {
         ItemStack item = inventory.getItem(slot);
         if (item == null)
