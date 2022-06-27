@@ -4,6 +4,7 @@ import com.github.rephrasing.ultimateapi.Util;
 import com.github.rephrasing.ultimateapi.guis.items.ItemCollection;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -33,12 +34,40 @@ public abstract class AbstractGUI implements InventoryHolder {
         player.openInventory(inventory);
     }
 
+    public int firstEmptySlot() {
+        return inventory.firstEmpty();
+    }
+
+    public int findFirst(Material type) {
+        return inventory.first(type);
+    }
+
+    public ItemCollection findFirstItem(Material type) {
+        int slot = findFirst(type);
+        if (slot != -1)
+            return new ItemCollection(inventory.getItem(slot));
+        return null;
+    }
+
+    public void clearGUI() {
+        inventory.clear();
+    }
+
+    public void openGUI() {
+        player.closeInventory();
+        player.openInventory(inventory);
+    }
+
     public void closeGUI() {
         player.closeInventory();
     }
 
     public void setItem(int slot, ItemCollection item) {
         inventory.setItem(slot, item.getInstance());
+    }
+
+    public ItemCollection getItem(int slot) {
+        return new ItemCollection(inventory.getItem(slot));
     }
 
     public void addItem(ItemCollection item) {
