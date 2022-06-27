@@ -1,17 +1,17 @@
 package com.github.rephrasing.ultimateapi.data;
 
 
-import java.util.HashMap;
-import java.util.UUID;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 
 public abstract class AbstractDataClass {
 
-    private final UUID uuid = UUID.randomUUID();
+    private final ObjectId id = new ObjectId();
 
-    public UUID getUniqueId() {
-        return uuid;
+    public ObjectId getObjectId() {
+        return id;
     }
 
-    public abstract HashMap<String, Object> encode();
-    public abstract <T extends AbstractDataClass> T decode(HashMap<String, Object> serializedHash);
+    public abstract Document toDocument();;
 }
