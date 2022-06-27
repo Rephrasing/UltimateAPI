@@ -3,7 +3,7 @@ package com.github.rephrasing.ultimateapi.guis;
 
 import org.bukkit.entity.Player;
 
-public class SubGUI extends AbstractGUI {
+public abstract class SubGUI extends AbstractGUI {
 
     private final GUI mainGUI;
 

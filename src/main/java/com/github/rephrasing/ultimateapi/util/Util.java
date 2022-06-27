@@ -1,4 +1,4 @@
-package com.github.rephrasing.ultimateapi;
+package com.github.rephrasing.ultimateapi.util;
 
 import org.bukkit.ChatColor;
 

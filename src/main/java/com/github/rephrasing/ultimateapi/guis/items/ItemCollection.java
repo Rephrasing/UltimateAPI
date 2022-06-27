@@ -1,6 +1,6 @@
 package com.github.rephrasing.ultimateapi.guis.items;
 
-import com.github.rephrasing.ultimateapi.Util;
+import com.github.rephrasing.ultimateapi.util.Util;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -132,6 +132,7 @@ public class ItemCollection {
     }
 
     public void setEnchantments(Map<Enchantment, Integer> enchants) {
+        this.enchantments = enchants;
         ItemMeta meta = getInstance().getItemMeta();
         for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
             meta.addEnchant(entry.getKey(), entry.getValue(), true);
@@ -140,6 +141,7 @@ public class ItemCollection {
     }
 
     public void addEnchant(Enchantment enchantment, int level) {
+        this.enchantments.put(enchantment, level);
         ItemMeta meta = getInstance().getItemMeta();
         meta.addEnchant(enchantment, level, true);
         getInstance().setItemMeta(meta);

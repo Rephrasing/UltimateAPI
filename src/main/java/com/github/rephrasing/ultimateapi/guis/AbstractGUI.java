@@ -1,6 +1,6 @@
 package com.github.rephrasing.ultimateapi.guis;
 
-import com.github.rephrasing.ultimateapi.Util;
+import com.github.rephrasing.ultimateapi.util.Util;
 import com.github.rephrasing.ultimateapi.guis.items.ItemCollection;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -28,6 +28,8 @@ public abstract class AbstractGUI implements InventoryHolder {
         this.name = name;
         this.inventory = Bukkit.createInventory(this, size, Util.colorize(name));
     }
+
+    public abstract String getIdentifier();
 
     public void refreshGUI() {
         player.closeInventory();

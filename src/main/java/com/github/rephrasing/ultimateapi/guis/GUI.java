@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class GUI extends AbstractGUI {
+public abstract class GUI extends AbstractGUI {
 
     private final List<SubGUI> subGUIs;
 
