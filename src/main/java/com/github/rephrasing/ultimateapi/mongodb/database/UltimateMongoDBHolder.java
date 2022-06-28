@@ -1,4 +1,4 @@
-package com.github.rephrasing.ultimateapi.database;
+package com.github.rephrasing.ultimateapi.mongodb.database;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -13,13 +13,13 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public abstract class AbstractDatabaseHolder {
+public abstract class UltimateMongoDBHolder {
 
     private MongoClient client;
     private CodecRegistry[] codecRegistries;
 
     /**
-     * This method is used to add codec registries (MUST BE CALLED BEFORE {@link AbstractDatabaseHolder#connect(String)})
+     * This method is used to add codec registries (MUST BE CALLED BEFORE {@link UltimateMongoDBHolder#connect(String)})
      * @param registries the registries
      */
     public void addCodecs(CodecRegistry... registries) {

@@ -1,17 +1,17 @@
-package com.github.rephrasing.ultimateapi.caching;
+package com.github.rephrasing.ultimateapi.mongodb.caching;
 
 import com.github.rephrasing.ultimateapi.UltimateAPI;
-import com.github.rephrasing.ultimateapi.data.AbstractDataClass;
+import com.github.rephrasing.ultimateapi.mongodb.data.UltimateBsonClass;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractCacheHolder<Data extends AbstractDataClass> {
+public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> {
 
     private final List<Data> cachedData;
 
-    public AbstractCacheHolder() {
+    public UltimateBsonCachingHolder() {
         if (fetch() == null) {
             UltimateAPI.getInstance().getPlugin().getLogger().severe("Fetching from database returned null!");
             this.cachedData = new ArrayList<>();

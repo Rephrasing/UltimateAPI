@@ -1,11 +1,11 @@
-package com.github.rephrasing.ultimateapi.data;
+package com.github.rephrasing.ultimateapi.mongodb.data;
 
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 
-public abstract class AbstractDataClass {
+public abstract class UltimateBsonClass {
 
     private final ObjectId id = new ObjectId();
 

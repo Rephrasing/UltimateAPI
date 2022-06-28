@@ -29,6 +29,8 @@ dependencies {
 
     // mongodb
     api("org.mongodb:mongodb-driver-sync:4.6.0")
+
+    implementation("org.reflections:reflections:0.10.2")
 }
 
 
