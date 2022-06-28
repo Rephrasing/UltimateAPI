@@ -4,8 +4,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Optional;
-
 public class UltimateCommandSender {
 
     private final CommandSender is;
@@ -20,17 +18,7 @@ public class UltimateCommandSender {
         is.sendMessage(message);
     }
 
-    public Optional<Player> asPlayer() {
-        if (isPlayer()) return Optional.of((Player) is);
-        return Optional.empty();
+    public Player asPlayer() {
+        return (Player) is;
     }
-
-    public boolean isConsole() {
-        return is instanceof ConsoleCommandSender;
-    }
-
-    public boolean isPlayer() {
-        return is instanceof Player;
-    }
-
 }
