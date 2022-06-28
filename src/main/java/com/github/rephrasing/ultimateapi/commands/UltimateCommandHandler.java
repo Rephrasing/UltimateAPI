@@ -9,14 +9,17 @@ import java.lang.reflect.InvocationTargetException;
 public class UltimateCommandHandler {
 
     public static void registerAll() {
+        int registeredCount = 0;
         for (Class<? extends UltimateCommand> aClass : new Reflections().getSubTypesOf(UltimateCommand.class)) {
             try {
                 UltimateAPI.getInstance().getPluginCommandMap().register(aClass.getAnnotation(UltimateCommandParams.class).name(), aClass.getConstructor().newInstance());
                 UltimateAPI.getInstance().getPlugin().getLogger().info("Registered Ultimate Command " + aClass.getAnnotation(UltimateCommandParams.class).name());
+                registeredCount++;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
+        if (registeredCount > 0) UltimateAPI.getInstance().getPlugin().getLogger().info(String.format("Successfully registered %s Ultimate Command(s)", registeredCount));
     }
 
 }
