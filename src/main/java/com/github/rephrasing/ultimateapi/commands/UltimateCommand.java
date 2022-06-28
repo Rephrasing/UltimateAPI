@@ -3,11 +3,11 @@ package com.github.rephrasing.ultimateapi.commands;
 import com.github.rephrasing.ultimateapi.UltimateAPI;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandParams;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandSettings;
+import com.github.rephrasing.ultimateapi.commands.senders.UltimateCommandSender;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -29,7 +29,7 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
         if (!settings.permission().isEmpty()) setPermission(settings.permission());
     }
 
-    public abstract String execute(@NotNull CommandSender sender, @Nullable Player playerSender, @NotNull String[] args);
+    public abstract String execute(@NotNull UltimateCommandSender sender, @NotNull String[] args);
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
@@ -47,7 +47,7 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
 
         if (!testPermission(sender)) return true;
 
-        String result = this.execute(sender, (sender instanceof Player) ? (Player) sender : null, args);
+        String result = this.execute(new UltimateCommandSender(sender), args);
         if (result != null) UltimateAPI.getInstance().sendMessage(sender, result);
         return true;
     }
