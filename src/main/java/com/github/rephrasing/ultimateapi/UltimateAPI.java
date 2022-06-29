@@ -15,22 +15,13 @@ import java.lang.reflect.Field;
 public class UltimateAPI {
 
     private final JavaPlugin plugin;
-    private final SimpleCommandMap pluginCommandMap;
 
     public static UltimateAPI instance;
 
-    @SneakyThrows
     public UltimateAPI(@NotNull JavaPlugin plugin) {
         this.plugin = plugin;
         if (instance != null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
         instance = this;
-
-
-        PluginManager manager = plugin.getServer().getPluginManager();
-        SimplePluginManager simple = (SimplePluginManager) manager;
-        Field commandMapField = simple.getClass().getDeclaredField("commandMap");
-        commandMapField.setAccessible(true);
-        pluginCommandMap = (SimpleCommandMap) commandMapField.get(simple);
 
         UltimateCommandHandler.registerAll();
         plugin.getLogger().info("Initiated UltimateAPI");
@@ -45,8 +36,13 @@ public class UltimateAPI {
         return plugin;
     }
 
+    @SneakyThrows
     public SimpleCommandMap getPluginCommandMap() {
-        return pluginCommandMap;
+        PluginManager manager = plugin.getServer().getPluginManager();
+        SimplePluginManager simple = (SimplePluginManager) manager;
+        Field commandMapField = simple.getClass().getDeclaredField("commandMap");
+        commandMapField.setAccessible(true);
+        return (SimpleCommandMap) commandMapField.get(simple);
     }
 
     public void sendMessage(CommandSender sender, String message) {
