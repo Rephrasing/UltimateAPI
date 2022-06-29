@@ -30,9 +30,15 @@ public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> 
 
     public void cacheData(Data data) {
         Data found = cachedData.stream().filter(loopData -> loopData.getObjectId().equals(data.getObjectId())).findFirst().orElse(null);
-        if (found != null) throw new IllegalArgumentException("Attempted to add data to cache but an object with the same UUID already exists");
+        if (found == null) throw new IllegalArgumentException("Attempted to cache data but found same object id");
         cachedData.add(data);
     }
+
+    public void cacheOrReplace(Data data) {
+        cachedData.stream().filter(loopData -> loopData.getObjectId().equals(data.getObjectId())).findFirst().ifPresent(cachedData::remove);
+        cachedData.add(data);
+    }
+
     public void removeFromCache(ObjectId uuid) {
         Data found = getData(uuid);
         if (found == null) throw new IllegalArgumentException("Attempted to remove data from cache but no object with given uuid was found");

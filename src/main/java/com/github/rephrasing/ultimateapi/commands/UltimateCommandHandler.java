@@ -6,6 +6,11 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Represents an UltimateCommand Registerer (Automatically registers every instance of {@link UltimateCommand})
+ *
+ * <p><b>This Class must not be used anywhere other than the backend of {@link UltimateAPI}</b></p>
+ */
 public class UltimateCommandHandler {
 
     public static void registerAll() {

@@ -8,6 +8,7 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 
@@ -19,8 +20,9 @@ public class UltimateAPI {
     public static UltimateAPI instance;
 
     @SneakyThrows
-    public UltimateAPI(JavaPlugin plugin) {
+    public UltimateAPI(@NotNull JavaPlugin plugin) {
         this.plugin = plugin;
+        if (instance != null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
         instance = this;
 
 

@@ -4,6 +4,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * Represents an UltimateCommand Sender
+ *
+ * <p>Made to ease the check whether a {@link CommandSender} is a {@link Player} or a {@link ConsoleCommandSender}</p>
+ */
 public class UltimateCommandSender {
 
     private final CommandSender is;

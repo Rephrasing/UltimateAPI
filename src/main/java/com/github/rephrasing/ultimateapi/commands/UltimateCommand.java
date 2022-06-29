@@ -11,6 +11,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
+/**
+ * Represents an UltimateCommand
+ * <p>This API is made to ease the process of creating a command in spigot (plugin.yml, registering it, etc.)</p>
+ *
+ * <p><b>This class must be annotated with {@link UltimateCommandParams} & {@link UltimateCommandSettings}</b></p>
+ *
+ * <p>{@link UltimateCommandParams} The parameters for the command (name, aliases)</p>
+ * {@link UltimateCommandSettings} The settings for the command (source, permission)
+ *
+ */
 public abstract class UltimateCommand extends Command implements PluginIdentifiableCommand {
 
     private final UltimateCommandParams params;
