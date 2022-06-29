@@ -7,7 +7,7 @@ public abstract class UltimateBsonClass {
 
     private final Object immutableKeyObject;
 
-    UltimateBsonClass(Object id) {
+    public UltimateBsonClass(Object id) {
         this.immutableKeyObject = id;
     }
 
