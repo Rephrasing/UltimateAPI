@@ -1,6 +1,6 @@
 package com.github.rephrasing.ultimateapi.guis.items;
 
-import com.github.rephrasing.ultimateapi.util.Util;
+import com.github.rephrasing.ultimateapi.util.Utils;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -103,7 +103,7 @@ public class ItemCollection {
     }
 
     public void setName(String name) {
-        String colorized = Util.colorize(name);
+        String colorized = Utils.colorize(name);
         ItemMeta meta = getInstance().getItemMeta();
         meta.setDisplayName(colorized);
         getInstance().setItemMeta(meta);
@@ -112,7 +112,7 @@ public class ItemCollection {
     public void setLore(List<String> lore) {
         List<String> colorizedLore = new ArrayList<>();
         for (String noColor : lore) {
-            colorizedLore.add(Util.colorize(noColor));
+            colorizedLore.add(Utils.colorize(noColor));
         }
 
         ItemMeta meta = getInstance().getItemMeta();
@@ -122,7 +122,7 @@ public class ItemCollection {
 
     public void addLore(String name) {
         if (lore == null) lore = new ArrayList<>();
-        lore.add(Util.colorize(name));
+        lore.add(Utils.colorize(name));
         ItemMeta meta = getInstance().getItemMeta();
         meta.setLore(lore);
         getInstance().setItemMeta(meta);

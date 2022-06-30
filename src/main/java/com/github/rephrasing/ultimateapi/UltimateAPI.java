@@ -1,7 +1,7 @@
 package com.github.rephrasing.ultimateapi;
 
 import com.github.rephrasing.ultimateapi.commands.UltimateCommandHandler;
-import com.github.rephrasing.ultimateapi.util.Util;
+import com.github.rephrasing.ultimateapi.util.Utils;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.SimpleCommandMap;
@@ -46,6 +46,6 @@ public class UltimateAPI {
     }
 
     public void sendMessage(CommandSender sender, String message) {
-        sender.sendMessage(Util.colorize("&8[&f" + getPlugin().getName() + "&8] &7" + message));
+        sender.sendMessage(Utils.colorize("&8[&f" + getPlugin().getName() + "&8] &7" + message));
     }
 }
