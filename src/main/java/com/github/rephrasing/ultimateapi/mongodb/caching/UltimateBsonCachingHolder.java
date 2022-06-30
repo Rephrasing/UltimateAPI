@@ -28,8 +28,16 @@ public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> 
     }
 
     public void cacheData(Data data) {
-        Data found = cachedData.stream().filter(loopData -> loopData.getImmutableKeyObject().equals(data.getImmutableKeyObject())).findFirst().orElse(null);
-        if (found == null) throw new IllegalArgumentException("Attempted to cache data but found same object id");
+        Data found = cachedData.stream().filter(loopData -> {
+            Object immutable = loopData.getImmutableKeyObject();
+            Object givenImmutable = data.getImmutableKeyObject();
+            if (immutable instanceof String && givenImmutable instanceof String) {
+                return ((String) immutable).equalsIgnoreCase((String) givenImmutable);
+            }
+            return immutable.equals(givenImmutable);
+        }).findFirst().orElse(null);
+
+        if (found != null) throw new IllegalArgumentException("Attempted to cache data but found same immutable object");
         cachedData.add(data);
     }
 

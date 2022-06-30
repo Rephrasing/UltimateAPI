@@ -8,10 +8,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class ItemCollection {
@@ -24,7 +21,7 @@ public class ItemCollection {
     private String name;
     private List<String> lore;
     private Map<Enchantment, Integer> enchantments;
-    private List<ItemFlag> itemFlags;
+    private Set<ItemFlag> itemFlags;
 
     public ItemCollection(Material type) {
         this.type = type;
@@ -75,14 +72,14 @@ public class ItemCollection {
     }
 
 
-    public ItemCollection(String name, Material type, List<ItemFlag> flags) {
+    public ItemCollection(String name, Material type, Set<ItemFlag> flags) {
         this.type = type;
         this.name = name;
         this.instance = new ItemStack(type, 1);
         this.itemFlags = flags;
         this.count = 1;
     }
-    public ItemCollection(String name, Material type, int count, List<ItemFlag> flags) {
+    public ItemCollection(String name, Material type, int count, Set<ItemFlag> flags) {
         if (count > 64)
             throw new IndexOutOfBoundsException("Cannot create a org.bukkit.inventory.ItemStack with count larger than 64");
         this.type = type;
@@ -101,7 +98,7 @@ public class ItemCollection {
             this.name = meta.getDisplayName();
             this.lore = meta.getLore();
             this.enchantments = meta.getEnchants() != null ?  meta.getEnchants() : new HashMap<>();
-            this.itemFlags = meta.getItemFlags() != null ? (List<ItemFlag>)  meta.getItemFlags() : new ArrayList<>();
+            this.itemFlags = meta.getItemFlags();
         }
     }
 
@@ -153,12 +150,14 @@ public class ItemCollection {
             meta.addItemFlags(flag);
         }
         getInstance().setItemMeta(meta);
+        this.itemFlags = getInstance().getItemMeta().getItemFlags();
     }
 
     public void addItemFlag(ItemFlag flag) {
         ItemMeta meta = getInstance().getItemMeta();
         meta.addItemFlags(flag);
         getInstance().setItemMeta(meta);
+        this.itemFlags = getInstance().getItemMeta().getItemFlags();
     }
 
 
