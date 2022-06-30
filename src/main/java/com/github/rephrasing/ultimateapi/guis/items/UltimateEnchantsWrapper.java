@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.enchantments.Enchantment;
 
 @Getter
-public class EnchantmentsWrapper {
+public class UltimateEnchantsWrapper {
 
     public static String nameOf(Enchantment enchantment) {
 
