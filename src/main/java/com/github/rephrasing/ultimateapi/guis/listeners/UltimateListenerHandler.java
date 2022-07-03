@@ -15,12 +15,12 @@ public class UltimateListenerHandler {
     private static final List<AbstractGUIListener> registeredListeners = new ArrayList<>();
 
     public static void registerAll() {
+        JavaPlugin plugin = UltimatePlugin.getInstance().getJavaPlugin();
+        plugin.getServer().getPluginManager().registerEvents(new BukkitGUIListener(),plugin);
         int registeredCount = 0;
         for (Class<? extends AbstractGUIListener> aClass : new Reflections().getSubTypesOf(AbstractGUIListener.class)) {
             try {
-                JavaPlugin plugin = UltimatePlugin.getInstance().getJavaPlugin();
                 AbstractGUIListener listener = aClass.newInstance();
-                plugin.getServer().getPluginManager().registerEvents(listener,plugin);
                 registeredListeners.add(listener);
                 UltimateAPI.getUltimateLogger().info("Registered Ultimate GUI Listener " + aClass.getSimpleName() + " for " + UltimatePlugin.getInstance().getJavaPlugin().getName());
                 registeredCount++;

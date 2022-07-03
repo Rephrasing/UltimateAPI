@@ -13,6 +13,6 @@ public abstract class AbstractGUIListener implements Listener {
     public abstract void onGUICloseEvent(InventoryCloseEvent event, AbstractUltimateGUI gui);
     public abstract void onGUIOpenEvent(InventoryOpenEvent event, AbstractUltimateGUI gui);
 
-    public abstract <T extends AbstractUltimateGUI> Class<T> getGUITypeClass();
+    public abstract Class<AbstractUltimateGUI> getGUITypeClass();
 
 }
