@@ -10,7 +10,7 @@ public class UltimateListenerHandler {
 
     public static void registerAll() {
         int registeredCount = 0;
-        for (Class<? extends UltimateGUIListener<?>> aClass : new Reflections().getSubTypesOf(UltimateGUIListener.class)) {
+        for (Class<? extends UltimateGUIListener> aClass : new Reflections().getSubTypesOf(UltimateGUIListener.class)) {
             try {
                 JavaPlugin plugin = UltimatePlugin.getInstance().getJavaPlugin();
                 plugin.getServer().getPluginManager().registerEvents(aClass.newInstance(),plugin);

@@ -1,6 +1,7 @@
 package com.github.rephrasing.ultimateapi.commands;
 
 import com.github.rephrasing.ultimateapi.UltimateAPI;
+import com.github.rephrasing.ultimateapi.UltimatePlugin;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandParams;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandSettings;
 import com.github.rephrasing.ultimateapi.commands.senders.UltimateCommandSender;
@@ -77,6 +78,6 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
 
     @Override
     public Plugin getPlugin() {
-        return UltimateAPI.getInstance().getUltimatePlugin();
+        return UltimatePlugin.getInstance().getJavaPlugin();
     }
 }
