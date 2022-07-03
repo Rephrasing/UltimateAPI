@@ -2,17 +2,26 @@ package com.github.rephrasing.ultimateapi.guis.listeners;
 
 import com.github.rephrasing.ultimateapi.UltimateAPI;
 import com.github.rephrasing.ultimateapi.UltimatePlugin;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UltimateListenerHandler {
+
+    @Getter
+    private static final List<AbstractGUIListener> registeredListeners = new ArrayList<>();
 
     public static void registerAll() {
         int registeredCount = 0;
-        for (Class<? extends UltimateGUIListener> aClass : new Reflections().getSubTypesOf(UltimateGUIListener.class)) {
+        for (Class<? extends AbstractGUIListener> aClass : new Reflections().getSubTypesOf(AbstractGUIListener.class)) {
             try {
                 JavaPlugin plugin = UltimatePlugin.getInstance().getJavaPlugin();
-                plugin.getServer().getPluginManager().registerEvents(aClass.newInstance(),plugin);
+                AbstractGUIListener listener = aClass.newInstance();
+                plugin.getServer().getPluginManager().registerEvents(listener,plugin);
+                registeredListeners.add(listener);
                 UltimateAPI.getUltimateLogger().info("Registered Ultimate GUI Listener " + aClass.getSimpleName() + " for " + UltimatePlugin.getInstance().getJavaPlugin().getName());
                 registeredCount++;
             } catch (InstantiationException | IllegalAccessException e) {
