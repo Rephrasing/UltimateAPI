@@ -1,6 +1,7 @@
 package com.github.rephrasing.ultimateapi.requests;
 
 import com.github.rephrasing.ultimateapi.UltimateAPI;
+import com.github.rephrasing.ultimateapi.UltimatePlugin;
 import com.github.rephrasing.ultimateapi.requests.exceptions.UltimateRequestException;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -24,7 +25,7 @@ public abstract class UltimateRequestsHandler<Key extends UltimateRequestKeyType
             public void run() {
                 removeRequest(key);
             }
-        }.runTaskLater(UltimateAPI.instance.getPlugin(), 20L * removeAfterInSeconds);
+        }.runTaskLater(UltimatePlugin.getInstance().getJavaPlugin(), 20L * removeAfterInSeconds);
     }
 
     public void removeRequest(Key key) {

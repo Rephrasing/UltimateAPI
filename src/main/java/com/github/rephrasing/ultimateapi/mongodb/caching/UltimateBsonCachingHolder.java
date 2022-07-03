@@ -12,7 +12,7 @@ public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> 
 
     public UltimateBsonCachingHolder() {
         if (fetch() == null) {
-            UltimateAPI.getInstance().getPlugin().getLogger().severe("Fetching from database returned null!");
+            UltimateAPI.getInstance().getUltimatePlugin().getLogger().severe("Fetching from database returned null!");
             this.cachedData = new ArrayList<>();
             return;
         }

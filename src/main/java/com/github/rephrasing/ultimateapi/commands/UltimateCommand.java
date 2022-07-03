@@ -77,6 +77,6 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
 
     @Override
     public Plugin getPlugin() {
-        return UltimateAPI.getInstance().getPlugin();
+        return UltimateAPI.getInstance().getUltimatePlugin();
     }
 }

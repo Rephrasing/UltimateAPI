@@ -1,30 +1,30 @@
 package com.github.rephrasing.ultimateapi;
 
 import com.github.rephrasing.ultimateapi.commands.UltimateCommandHandler;
+import com.github.rephrasing.ultimateapi.guis.listeners.UltimateListenerHandler;
 import com.github.rephrasing.ultimateapi.util.Utils;
-import lombok.SneakyThrows;
+import lombok.Getter;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
 
 public class UltimateAPI {
 
-    private final JavaPlugin plugin;
-
     public static UltimateAPI instance;
 
+    @Getter
+    private static final UltimateLogger ultimateLogger = new UltimateLogger();
+
     public UltimateAPI(@NotNull JavaPlugin plugin) {
-        this.plugin = plugin;
+        if (plugin == null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI but found a null plugin was provided.");
+        new UltimatePlugin(plugin);
         if (instance != null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
         instance = this;
 
         UltimateCommandHandler.registerAll();
-        plugin.getLogger().info("Initiated UltimateAPI");
+        UltimateListenerHandler.registerAll();
+        getUltimateLogger().info("Initiated UltimateAPI by " + plugin.getName());
     }
 
     public static UltimateAPI getInstance() {
@@ -32,20 +32,7 @@ public class UltimateAPI {
         return instance;
     }
 
-    public JavaPlugin getPlugin() {
-        return plugin;
-    }
-
-    @SneakyThrows
-    public SimpleCommandMap getPluginCommandMap() {
-        PluginManager manager = plugin.getServer().getPluginManager();
-        SimplePluginManager simple = (SimplePluginManager) manager;
-        Field commandMapField = simple.getClass().getDeclaredField("commandMap");
-        commandMapField.setAccessible(true);
-        return (SimpleCommandMap) commandMapField.get(simple);
-    }
-
     public void sendMessage(CommandSender sender, String message) {
-        sender.sendMessage(Utils.colorize("&8[&f" + getPlugin().getName() + "&8] &7" + message));
+        sender.sendMessage(Utils.colorize("&8[&f" + UltimatePlugin.getInstance().getJavaPlugin().getName() + "&8] &7" + message));
     }
 }
