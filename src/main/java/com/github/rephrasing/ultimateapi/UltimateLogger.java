@@ -8,7 +8,7 @@ public class UltimateLogger extends Logger {
 
     protected UltimateLogger() {
         super("UltimateAPI", null);
-        setParent(UltimateAPI.getUltimateLogger());
+        setParent(Logger.getLogger("UltimateAPI"));
         setLevel(Level.ALL);
     }
 
