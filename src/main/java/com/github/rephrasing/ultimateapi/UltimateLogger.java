@@ -14,7 +14,7 @@ public class UltimateLogger extends Logger {
 
     @Override
     public void log(LogRecord record) {
-        record.setMessage("[UltimateAPI]" + record.getMessage());
+        record.setMessage("[UltimateAPI] " + record.getMessage());
         super.log(record);
     }
 
