@@ -22,7 +22,7 @@ public abstract class UltimateGUIListener<GUI extends AbstractUltimateGUI> imple
     private void onClick(InventoryClickEvent event) {
         InventoryHolder holder = event.getInventory().getHolder();
         if (!getGUITypeClass().isInstance(holder)) return;
-        GUI gui = (GUI) holder;
+        GUI gui = getGUITypeClass().cast(holder);
         onGUIClickEvent(gui, event);
     }
 
@@ -30,7 +30,7 @@ public abstract class UltimateGUIListener<GUI extends AbstractUltimateGUI> imple
     private void onClose(InventoryCloseEvent event) {
         InventoryHolder holder = event.getInventory().getHolder();
         if (!getGUITypeClass().isInstance(holder)) return;
-        GUI gui = (GUI) holder;
+        GUI gui = getGUITypeClass().cast(holder);
         onGUICloseEvent(gui, event);
     }
 
@@ -38,7 +38,7 @@ public abstract class UltimateGUIListener<GUI extends AbstractUltimateGUI> imple
     private void onOpen(InventoryOpenEvent event) {
         InventoryHolder holder = event.getInventory().getHolder();
         if (!getGUITypeClass().isInstance(holder)) return;
-        GUI gui = (GUI) holder;
+        GUI gui = getGUITypeClass().cast(holder);
         onGUIOpenEvent(gui, event);
     }
 
