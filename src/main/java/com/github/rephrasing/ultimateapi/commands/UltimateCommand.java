@@ -87,15 +87,17 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
     }
 
     private boolean matches(String label) {
-        if (params.aliases().split(",").length < 1) return getName().equalsIgnoreCase(label);
-
-        if (params.aliases().split(",").length > 0) {
-
-            for (String alias : params.aliases().split(",")) {
-                if (alias.equalsIgnoreCase(label) || getName().equalsIgnoreCase(label)) return true;
+        if (!params.aliases().isEmpty()) {
+            if (!params.aliases().equals(" ")) {
+                String[] aliases = params.aliases().split(",");
+                if (aliases.length > 1) {
+                    for (String alias : aliases) {
+                        if (label.equalsIgnoreCase(alias)) return true;
+                    }
+                }
             }
         }
-        return false;
+        return label.equalsIgnoreCase(getName());
     }
 
     @Override
