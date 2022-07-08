@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.util.logging.Logger;
 
 public class UltimatePlugin {
 
@@ -31,7 +32,9 @@ public class UltimatePlugin {
         this.simpleCommandMap = (SimpleCommandMap) commandMapField.get(simple);
     }
 
-
+    public Logger getLogger() {
+        return javaPlugin.getLogger();
+    }
 
 
 }

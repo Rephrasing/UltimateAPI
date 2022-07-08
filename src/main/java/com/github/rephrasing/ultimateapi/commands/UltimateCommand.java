@@ -5,12 +5,17 @@ import com.github.rephrasing.ultimateapi.UltimatePlugin;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandParams;
 import com.github.rephrasing.ultimateapi.commands.annotations.UltimateCommandSettings;
 import com.github.rephrasing.ultimateapi.commands.senders.UltimateCommandSender;
+import com.github.rephrasing.ultimateapi.commands.tab.UltimateTabCompleter;
+import lombok.Setter;
+import org.apache.commons.lang.Validate;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents an UltimateCommand
@@ -27,6 +32,9 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
     private final UltimateCommandParams params;
     private final UltimateCommandSettings settings;
 
+    @Setter
+    private UltimateTabCompleter ultimateTabCompleter;
+
     protected UltimateCommand() {
         super("");
         this.params = getClass().getAnnotation(UltimateCommandParams.class);
@@ -38,6 +46,11 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
         if (params.aliases().split(",").length > 0) setAliases(Arrays.asList(params.aliases().split(",")));
 
         if (!settings.permission().isEmpty()) setPermission(settings.permission());
+    }
+
+    protected UltimateCommand(UltimateTabCompleter ultimateTabCompleter) {
+        this();
+        this.ultimateTabCompleter = ultimateTabCompleter;
     }
 
     public abstract String execute(@NotNull UltimateCommandSender sender, @NotNull String[] args);
@@ -63,6 +76,16 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
         return true;
     }
 
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+        Validate.notNull(sender, "Sender cannot be null");
+        Validate.notNull(args, "Arguments cannot be null");
+        Validate.notNull(alias, "Alias cannot be null");
+
+        if (ultimateTabCompleter != null) return ultimateTabCompleter.onTabComplete(sender, this, alias, args);
+        return new ArrayList<>();
+    }
+
     private boolean matches(String label) {
         if (params.aliases().split(",").length < 1) return getName().equalsIgnoreCase(label);
 
@@ -72,7 +95,6 @@ public abstract class UltimateCommand extends Command implements PluginIdentifia
                 if (alias.equalsIgnoreCase(label) || getName().equalsIgnoreCase(label)) return true;
             }
         }
-
         return false;
     }
 

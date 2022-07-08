@@ -4,6 +4,8 @@ import com.github.rephrasing.ultimateapi.commands.UltimateCommandHandler;
 import com.github.rephrasing.ultimateapi.guis.listeners.UltimateListenerHandler;
 import com.github.rephrasing.ultimateapi.util.Utils;
 import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -16,8 +18,11 @@ public class UltimateAPI {
     @Getter
     private static final UltimateLogger ultimateLogger = new UltimateLogger();
 
+    @Setter
+    private boolean usePluginPrefix = false;
+
     public UltimateAPI(@NotNull JavaPlugin plugin) {
-        if (plugin == null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI but found a null plugin was provided.");
+        Validate.notNull(plugin, "Attempted to initiate UltimateAPI but found a null plugin was provided.");
         new UltimatePlugin(plugin);
         if (instance != null) throw new IllegalArgumentException("Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
         instance = this;
@@ -33,6 +38,7 @@ public class UltimateAPI {
     }
 
     public void sendMessage(CommandSender sender, String message) {
-        sender.sendMessage(Utils.colorize("&8[&f" + UltimatePlugin.getInstance().getJavaPlugin().getName() + "&8] &7" + message));
+        String newMessage = usePluginPrefix ? "&8[&f" + UltimatePlugin.getInstance().getJavaPlugin().getName() + "&8] &7" + message : message;
+        sender.sendMessage(Utils.colorize(newMessage));
     }
 }

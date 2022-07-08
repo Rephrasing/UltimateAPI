@@ -19,15 +19,15 @@ public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> 
         this.cachedData = fetch();
     }
 
-    public List<Data> getCachedData() {
+    public final List<Data> getCachedData() {
         return cachedData;
     }
 
-    public Data getData(Object keyObject) {
+    public final Data getData(Object keyObject) {
         return cachedData.stream().filter(loopData -> loopData.getImmutableKeyObject().equals(keyObject)).findFirst().orElse(null);
     }
 
-    public void cacheData(Data data) {
+    public final void cacheData(Data data) {
         Data found = cachedData.stream().filter(loopData -> {
             Object immutable = loopData.getImmutableKeyObject();
             Object givenImmutable = data.getImmutableKeyObject();
@@ -41,12 +41,12 @@ public abstract class UltimateBsonCachingHolder<Data extends UltimateBsonClass> 
         cachedData.add(data);
     }
 
-    public void cacheOrReplace(Data data) {
+    public final void cacheOrReplace(Data data) {
         cachedData.stream().filter(loopData -> loopData.getImmutableKeyObject().equals(data.getImmutableKeyObject())).findFirst().ifPresent(cachedData::remove);
         cachedData.add(data);
     }
 
-    public void removeFromCache(Object keyObject) {
+    public final void removeFromCache(Object keyObject) {
         Data found = getData(keyObject);
         if (found == null) throw new IllegalArgumentException("Attempted to remove data from cache but no object with given uuid was found");
         cachedData.remove(found);

@@ -7,12 +7,12 @@ import com.github.rephrasing.ultimateapi.UltimateAPI;
  *
  * <p>Thrown if something goes wrong in the process of initiating/handling an UltimateCommand</p>
  */
-public class CommandException extends Throwable {
+public class UltimateCommandException extends Throwable {
 
-    protected CommandException(String message) {
+    protected UltimateCommandException(String message) {
         UltimateAPI.getUltimateLogger().severe(message);
     }
 
-    protected CommandException() {}
+    protected UltimateCommandException() {}
 
 }
