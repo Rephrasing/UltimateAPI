@@ -21,7 +21,7 @@ public class UltimateAPI {
 
     public UltimateAPI(@NotNull JavaPlugin plugin) {
         Validate.notNull(plugin, "Attempted to initiate UltimateAPI but a null plugin was provided.");
-        Validate.isTrue(instance != null, "Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
+        Validate.isTrue(instance == null, "Attempted to initiate UltimateAPI twice! (Likely conducted outside of this plugin)");
         new UltimatePlugin(plugin);
         instance = this;
 
