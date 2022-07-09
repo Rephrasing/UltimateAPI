@@ -24,7 +24,7 @@ public class UltimatePaginatedGUI implements InventoryHolder {
 
     private String name;
 
-    UltimatePaginatedGUI(String name) {
+    public UltimatePaginatedGUI(String name) {
         this.name = Utils.format(name);
         prepare();
     }
