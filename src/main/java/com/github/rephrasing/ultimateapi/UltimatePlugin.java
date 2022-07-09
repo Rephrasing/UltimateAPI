@@ -1,7 +1,10 @@
 package com.github.rephrasing.ultimateapi;
 
+import com.github.rephrasing.ultimateapi.guis.listeners.BukkitGUIListener;
+import com.github.rephrasing.ultimateapi.guis.paginated.buttons.PaginatedListener;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.apache.commons.lang.Validate;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.SimplePluginManager;
@@ -22,7 +25,7 @@ public class UltimatePlugin {
 
     @SneakyThrows
     protected UltimatePlugin(@NotNull JavaPlugin plugin) {
-        if (instance != null) throw new IllegalArgumentException("Tried to initiate an UltimatePlugin but another plugin is already using Ultimate API");
+        Validate.isTrue(instance == null, "Tried to initiate an UltimatePlugin but another plugin is already using Ultimate API");
         instance = this;
         this.javaPlugin = plugin;
         PluginManager manager = plugin.getServer().getPluginManager();
@@ -30,6 +33,9 @@ public class UltimatePlugin {
         Field commandMapField = simple.getClass().getDeclaredField("commandMap");
         commandMapField.setAccessible(true);
         this.simpleCommandMap = (SimpleCommandMap) commandMapField.get(simple);
+
+        plugin.getServer().getPluginManager().registerEvents(new BukkitGUIListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new PaginatedListener(), plugin);
     }
 
     public Logger getLogger() {

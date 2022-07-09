@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.apache.commons.lang.Validate;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -27,7 +28,7 @@ public abstract class UltimateMongoDBHolder {
     }
 
     public void connect(String connectionUri) {
-        if (client != null) throw new IllegalArgumentException("Attempted connection to MongoDB but found an existing connection");
+        Validate.isTrue(client == null, "Attempted connection to MongoDB but found an existing connection");
 
         MongoClientSettings.Builder builder = MongoClientSettings.builder();
 
